@@ -58,6 +58,11 @@
 				"settings": {
 					"bundleName": "stel.demo.CustomerDetailsApp.i18n.i18n"
 				}
+			},
+			"mockdata":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri":"./model/mockdata.json"
+
 			}
 		},
 		"resources": {

@@ -1,11 +1,80 @@
-<mvc:View controllerName="stel.demo.CustomerDetailsApp.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+<mvc:View controllerName="stel.demo.CustomerDetailsApp.controller.View1"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m">
 	<Shell id="shell">
 		<App id="app">
 			<pages>
-				<Page id="page" title="{i18n>title}">
-					<content></content>
-				</Page>
+				<SplitContainer>
+					<masterPages>
+						<semantic:MasterPage title="Customer">
+							<List id = "customerList" items="{
+									path:'mockdata>/d/results',
+									sorter:{
+										path:'CompanyName',
+										group:true
+									}	
+								}">
+								<headerToolbar>
+									<Toolbar>
+										<Input liveChange="onInputChange"/>
+										<!-- <ToolbarSpacer/> -->
+										<Button text="Filter" press="onFilterPress"/>
+									</Toolbar>
+								</headerToolbar>
+								<items>
+									<StandardListItem title="{mockdata>ContactName}" type="Navigation" press="onCustListItemPress"/>
+								</items>
+							</List>
+						</semantic:MasterPage>
+					</masterPages>
+					<detailPages>
+						<semantic:DetailPage>
+							<f:SimpleForm id="idCustDetailsForm" editable="true" layout="ResponsiveGridLayout" title="Details" 
+							labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" 
+							emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" 
+							columnsL="1" columnsM="1" singleContainerFullSize="false">
+								<f:content>
+									<Label text="CustomerID"/>
+									<Input value="{mockdata>CustomerID}" editable="{= ${viewModel>idEditable} === 'X'}"/>
+									<Label text="CompanyName"/>
+									<Input value="{
+												path:'viewModel>/IdEditable',
+												formatter:'.myCustomFormatter'		
+												}"/>
+									<Label text="ContactName"/>
+									<Input value="{mockdata>ContactName}"/>
+									<Label text="ContactTitle"/>
+									<Input value="{mockdata>ContactTitle}"/>
+								</f:content>
+							</f:SimpleForm>
+							<f:SimpleForm id="idCustAddressForm" editable="true" layout="ResponsiveGridLayout" title="Address" labelSpanXL="3" 
+							labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" 
+							emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" 
+							columnsM="1" singleContainerFullSize="false">
+								<f:content>
+									<Label text="Address"/>
+									<Input value="{mockdata>Address}"/>
+									<Label text="City"/>
+									<Input value="{mockdata>City}"/>
+									<Label text="Region"/>
+									<Input value="{mockdata>Region}"/>
+									<Label text="PostalCode"/>
+									<Input value="{mockdata>PostalCode}"/>
+									<Label text="Country"/>
+									<Input value="{mockdata>Country}"/>
+									<Label text="Phone"/>
+									<Input value="{mockdata>Phone}"/>
+									<Label text="Fax"/>
+									<Input value="{mockdata>Fax}"/>
+								</f:content>
+							</f:SimpleForm>
+						</semantic:DetailPage>
+					</detailPages>
+				</SplitContainer>
 			</pages>
 		</App>
 	</Shell>
 </mvc:View>
+
